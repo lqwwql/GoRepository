@@ -9,7 +9,7 @@ import (
 	"encoding/json"
 	"encoding/base64"
 )
-
+/*图片识别文字*/
 func HttpDo(filePath string) (str string,err error) {
 	//图片转换base64
 	base64img, err := TurnToBase64(filePath)
