@@ -2,8 +2,18 @@ package main
 
 import (
 	"fmt"
+	"grutils/grmath"
+	_ "net/http/pprof"
+	"network"
+	"reflect"
+	"strings"
+	"time"
 )
 
+
+type StringS struct {
+	Name string `json:"name"`
+}
 func main() {
 	//network.HttpDo("C://123.jpg")
 	//fmt.Println(time.Now().Format("20060102"))
@@ -20,36 +30,115 @@ func main() {
 
 	//testScanf()
 
-	test()
+	//test()
+
+	//channels.TestChannel()
+	//getFileName("C:\\Users\\admin\\Desktop\\error.txt")
+
+	//isImage("error.PNGs")
+	//ifContainKey("cageageahea","b","a")
+	//testTimeFormat()
+	//testFmtFormat()
+	network.NetWorkProgram()
+	//var i = 11
+	//fmt.Printf("i = %3d0",i)
+	//result := fmt.Sprintf("%03d",i)
+	//
+	//fmt.Println(result)
+
+	//imsiHeader := ""
+	//imsiSql := "AND 1=1 "
+	//if imsiHeader != "" {
+	//	imsiSql = strings.Join([]string{imsiSql," AND `imsi` LIKE '",imsiHeader,"%'"},"")
+	//}
+	//fmt.Printf("imsiSql = %s",imsiSql)
 }
 
-func test(){
+func testFmtFormat(){
+	val := []int{1,2,3}
+	fmt.Printf("%v,%T \n",val,val)
+	fmt.Println(reflect.TypeOf(val))
+	fmt.Printf("%p,%p,%p,%p \n",val,val[0],val[1],val[2])
+	fmt.Printf("%p,%p,%p,%p \n",&val,&val[0],&val[1],&val[2])
+
+
+}
+
+
+func testTimeFormat() {
+	                                           //转化为时间戳 类型是int64
+	//时间戳转日期
+	dataTimeStr := time.Unix(1420041600, 0).Format(grmath.DATETIME_FORMAT) //设置时间戳 使用模板格式化为日期字符串
+	fmt.Println(dataTimeStr)
+}
+
+func ifContainKey(key ... string) {
+	fmt.Printf("lenth = %d ", len(key))
+}
+
+func isImage(fileName string) bool {
+	start := strings.Index(fileName, ".") + 1
+	end := len(fileName)
+	suffix := substring(fileName, start, end)
+
+	fmt.Println(suffix)
+	if strings.EqualFold(suffix, "png") || strings.EqualFold(suffix, "jpg") || strings.EqualFold(suffix, "jpeg") {
+		fmt.Println("is image")
+	}
+	strings.EqualFold(suffix, "png")
+	fmt.Println("not a image")
+	return false
+}
+
+func getFileName(originName string) {
+	start := strings.LastIndex(originName, "\\") + 1
+	end := len(originName)
+	result := substring(originName, start, end)
+	fmt.Println(result)
+}
+
+func substring(source string, start int, end int) string {
+	var r = []rune(source)
+	length := len(r)
+
+	if start < 0 || end > length || start > end {
+		return ""
+	}
+
+	if start == 0 || end == 0 && end == length {
+		return source
+	}
+
+	return string(r[start:end])
+}
+
+func testPointer() {
 	var b int = 10
 	a := &b
 	var c *int
 	c = a
 	var d *int = &b
 
-	fmt.Println("a = ",*a)
-	fmt.Println("b = ",b)
-	fmt.Println("c = ",*c)
-	fmt.Println("d = ",*d)
+	fmt.Println("a = ", *a)
+	fmt.Println("b = ", b)
+	fmt.Println("c = ", *c)
+	fmt.Println("d = ", *d)
 }
 
-func testScanf(){
+func testScanf() {
 	var n int
 	var m int
 	fmt.Println("程序运行中.....")
 	for {
-		fmt.Scanf("%d%d%s",&n,&m)
+		fmt.Scanf("%d%d%s", &n, &m)
 		if n > m {
 			fmt.Println("over.....")
 			break
 		}
 
-		for i:=n;i<m;i++{
+		for i := n; i < m; i++ {
 			if isPrime(i) == true {
-				fmt.Printf("%d\n",i)
+				fmt.Printf("%d\n", i)
 				continue
 			}
 		}
@@ -57,7 +146,7 @@ func testScanf(){
 }
 
 //判断素数
-func isPrime(value int)bool{
+func isPrime(value int) bool {
 	if value <= 3 {
 		return value >= 2
 	}

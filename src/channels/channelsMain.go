@@ -1,6 +1,7 @@
 package channels
 
 import (
+	"fmt"
 	"github.com/labstack/gommon/log"
 	"io"
 	"net"
@@ -32,5 +33,24 @@ func mustCopy (dst io.Writer,src io.Reader) {
 		log.Fatal(err)
 	}
 
+
+}
+
+
+func TestChannel(){
+	ch := make(chan int , 10)
+	x := <-ch
+	fmt.Println(x)
+
+	ch <- 11
+	ch <- 23
+
+	close(ch)
+
+	fmt.Println(ch)
+
+	x,ok := <- ch
+
+	fmt.Println(x,ok)
 
 }
