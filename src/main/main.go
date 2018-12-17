@@ -1,11 +1,12 @@
 package main
 
 import (
+	"dbconn"
 	"fmt"
 	"grutils/grmath"
 	_ "net/http/pprof"
-	"network"
 	"reflect"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -39,7 +40,7 @@ func main() {
 	//ifContainKey("cageageahea","b","a")
 	//testTimeFormat()
 	//testFmtFormat()
-	network.NetWorkProgram()
+	//network.NetWorkProgram()
 	//var i = 11
 	//fmt.Printf("i = %3d0",i)
 	//result := fmt.Sprintf("%03d",i)
@@ -52,6 +53,23 @@ func main() {
 	//	imsiSql = strings.Join([]string{imsiSql," AND `imsi` LIKE '",imsiHeader,"%'"},"")
 	//}
 	//fmt.Printf("imsiSql = %s",imsiSql)
+
+
+	//myreflect.ReflectTest()
+	//stringToInt("12345")
+
+	//myFlag.TestFlagPackage()
+	dbconn.InitDB()
+}
+
+func stringToInt(str string){
+	var result int
+	for i:=0;i<len(str);i++ {
+		s,_:= strconv.Atoi(string(str[i]))
+		fmt.Println(s)
+		result += s
+	}
+	fmt.Println(result)
 }
 
 func testFmtFormat(){
