@@ -1,7 +1,6 @@
 package main
 
 import (
-	"dbconn"
 	"fmt"
 	"grutils/grmath"
 	_ "net/http/pprof"
@@ -59,7 +58,26 @@ func main() {
 	//stringToInt("12345")
 
 	//myFlag.TestFlagPackage()
-	dbconn.InitDB()
+	//dbconn.InitDB()
+
+	testStringTo01()
+}
+
+func testStringTo01(){
+	str := "nmsl"
+	fmt.Println([]byte(str))
+}
+
+func testSlice(){
+	slicea := []int{1,2,3,4}
+	fmt.Println(slicea)
+	changeSlice(&slicea)
+	fmt.Println(slicea)
+}
+
+func changeSlice(slicea *[]int){
+	sliceb := []int{1,2,3}
+	*slicea = sliceb
 }
 
 func stringToInt(str string){

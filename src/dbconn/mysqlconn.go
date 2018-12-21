@@ -1,9 +1,10 @@
 package dbconn
 
 import (
+	"aimsg_server/src/client"
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
+	//_ "github.com/go-sql-driver/mysql"
 	"strings"
 )
 
@@ -12,7 +13,7 @@ const(
 	password = ""
 	ip = "172.16.0.216"
 	port = "3306"
-	dbname = "world"
+	dbname = "aimsg"
 )
 
 type User struct {
@@ -42,6 +43,21 @@ func InitDB (){
 		return
 	}
 	fmt.Println("connect mysql success")
+}
+
+func TestTimeBetween()(err error){
+	appid := "guruselfcontact"
+	sql := "SELECT * FROM `client` " +
+		"WHERE JSON_EXTRACT(`extra_info`,'$.context.appid') = '" + appid +
+		"' and unix_timestamp(`create_time`) between unix_timestamp('2017-05-01 01:01:01') and unix_timestamp('2018-12-01 01:01:01')"
+	var client client.Client
+	fmt.Println(sql)
+	err = DB.QueryRow(sql).Scan(&client.Username,&client.PtId,&client.ClientId,&client.CustomerId,&client.CreateTime,&client.Status,&client.ExtraInfoString)
+	if err!=nil{
+		fmt.Printf("query sql errr = %s \n",err)
+	}
+	fmt.Printf("app = %+v \n",client)
+	return
 }
 
 func (user *User) InsertUserToDb()bool{

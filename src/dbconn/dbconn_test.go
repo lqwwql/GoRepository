@@ -16,6 +16,7 @@ func Test_Dbconn(t *testing.T){
 	//result := DeleteUserFromDB(2)
 	//result := user.UpdateUserToDB()
 	//result := QueryUserBYID(1)
-	result := QueryAllUser()
+	//result := QueryAllUser()
+	result := TestTimeBetween()
 	fmt.Println(result)
 }
