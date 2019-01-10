@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"grutils/grmath"
 	_ "net/http/pprof"
+	"os"
 	"reflect"
 	"strconv"
 	"strings"
@@ -60,12 +61,25 @@ func main() {
 	//myFlag.TestFlagPackage()
 	//dbconn.InitDB()
 
-	testStringTo01()
+	//testStringTo01()
+	saveToFile()
 }
 
 func testStringTo01(){
 	str := "nmsl"
 	fmt.Println([]byte(str))
+}
+
+func saveToFile(){
+	fileName := "test.dat"
+	dstFile,err := os.Create(fileName)
+	if err!=nil{
+		fmt.Println(err.Error())
+		return
+	}
+	defer dstFile.Close()
+	s:="hello world"
+	dstFile.WriteString(s + "\n")
 }
 
 func testSlice(){
